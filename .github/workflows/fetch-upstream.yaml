@@ -1,0 +1,31 @@
+name: Fetch upstream
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+
+jobs:
+  fetch-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get manifests
+        run: |
+          git clone https://github.com/CrunchyData/postgres-operator-examples
+          mkdir -p kustomize
+          cp -rf postgres-operator-examples/kustomize/install kustomize
+          rm -rf postgres-operator-examples
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          delete-branch: true
+          title: "[bot] Automated update"
+          signoff: false
+          committer: Github <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          body: |
+            This is an automated update to manifest files from CI.
+
+            Configuration of the workflow is located in `.github/workflows/fetch-upstream.yaml`
+          labels: bot/update
