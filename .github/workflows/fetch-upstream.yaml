@@ -17,7 +17,7 @@ jobs:
           cp -rf postgres-operator-examples/kustomize/install kustomize
           rm -rf postgres-operator-examples
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           delete-branch: true
