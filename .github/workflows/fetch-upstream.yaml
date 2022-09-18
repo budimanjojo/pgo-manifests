@@ -14,10 +14,8 @@ jobs:
         run: |
           git clone https://github.com/CrunchyData/postgres-operator-examples
           rm -rf kustomize helm
-          mkdir -p kustomize
-          mkdir -p helm
-          cp -rf postgres-operator-examples/kustomize/install/* kustomize
-          cp -rf postgres-operator-examples/helm/install/* helm
+          cp -rf postgres-operator-examples/kustomize/install kustomize
+          cp -rf postgres-operator-examples/helm/install helm
           rm -rf postgres-operator-examples
       - name: Create pull request
         uses: peter-evans/create-pull-request@v4
