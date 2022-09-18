@@ -13,6 +13,7 @@ jobs:
       - name: Get manifests
         run: |
           git clone https://github.com/CrunchyData/postgres-operator-examples
+          rm -rf kustomize helm
           mkdir -p kustomize
           mkdir -p helm
           cp -rf postgres-operator-examples/kustomize/install/* kustomize
